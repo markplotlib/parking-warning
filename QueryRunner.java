@@ -48,6 +48,7 @@ public class QueryRunner {
         m_queryArray.add(new QueryData("Select * from location where city like ?", new String [] {"CITY"}, new boolean [] {true}, false, true));
         m_queryArray.add(new QueryData("insert into owner (owner_id, first_name, last_name, age, phone_number) values (?,?,?,?,?)",new String [] {"OWNER_ID", "FIRST_NAME", "LAST_NAME", "AGE", "PHONE_NUMBER"}, new boolean [] {false, false, false, false, false}, true, true));
 
+        // Query numbers below correspond to the query verifying sheet in google drive
         // Query #2
         m_queryArray.add(new QueryData("SELECT inc.location_id, loc.city, loc.state, COUNT(inc.location_id) AS Incidents\r\n" +
         		"FROM incident as inc, location as loc WHERE inc.location_id = loc.location_id\r\n" +
@@ -90,23 +91,71 @@ public class QueryRunner {
         		+ "ON o.owner_id = veh.owner_id\r\n"
         		+ "JOIN license lic\r\n"
         		+ "ON o.owner_id = lic.owner_id\r\n"
-        		+ "WHERE inc.outcome_id = 1 ", null, null, false, false));
-//
-//     // Query #5
-//        m_queryArray.add(new QueryData(
-//        		"SELECT  loc.city AS 'city of citation',\r\n"
-//        		+ "loc.state AS 'state of citation',\r\n"
-//        		+ "o.city AS 'DL_City',  o.state AS 'DL_State'\r\n"
-//        		+ "FROM incident inc\r\n"
-//        		+ "JOIN location loc\r\n"
-//        		+ "ON loc.location_id = inc.location_id\r\n"
-//        		+ "JOIN vehicle veh\r\n"
-//        		+ "ON veh.vehicle_id = inc.vehicle_id"
-//        		+ "JOIN owner o\r\n"
-//        		+ "ON o.owner_id = veh.owner_id\r\n"
-//        		+ "JOIN license lic\r\n"
-//        		+ "ON o.owner_id = lic.owner_id\r\n"
-//        		+ "WHERE inc.outcome_id = 1 ", null, null, false, false));
+        		+ "WHERE inc.outcome_id = 1;", null, null, false, false));
+
+     // Query #5
+        m_queryArray.add(new QueryData(
+        		"SELECT p.mobile_carrier, m.mobile_carrier_name,\r\n"
+        		+ "COUNT(m.mobile_carrier_name)\r\n"
+        		+ "AS 'user adoption (ct)'\r\n"
+        		+ "FROM phone p\r\n"
+        		+ "JOIN mobile_carrier m\r\n"
+        		+ "ON p.mobile_carrier = m.mobile_carrier_id\r\n"
+        		+ "GROUP BY m.mobile_carrier_name, p.mobile_carrier\r\n"
+        		+ "ORDER BY 'user adoption (ct)' DESC;"
+        		, null, null, false, false));
+
+     // Query #6
+        m_queryArray.add(new QueryData(
+        		"SELECT p.phone_brand, m.mobile_carrier_name,\n" +
+        		"COUNT(m.mobile_carrier_name) -- AS [total mobile carrier users]\n" +
+        		"FROM phone p\n" +
+        		"JOIN mobile_carrier m ON p.mobile_carrier =\n" +
+        		"m.mobile_carrier_id\n" +
+        		"GROUP BY m.mobile_carrier_name, p.phone_brand\n" +
+        		"ORDER BY p.phone_brand, m.mobile_carrier_name\n"
+        		, null, null, false, false));
+
+     // Query #7
+        m_queryArray.add(new QueryData(
+        		"SELECT\n" +
+        		"SUM(CASE WHEN HOUR(datetime) BETWEEN 5 AND 12 THEN 1 ELSE 0\n" +
+        		"END) AS Morning,\n" +
+        		"SUM(CASE WHEN HOUR(datetime) BETWEEN 13 AND 17 THEN 1 ELSE 0 END)\n" +
+        		"AS Afternoon,\n" + 
+        		"SUM(CASE WHEN HOUR(datetime) BETWEEN 18 AND 22 THEN 1 ELSE 0\n" +
+        		"END) AS Evening,\n" +
+        		"SUM(CASE WHEN HOUR(datetime) >= 23 OR HOUR(datetime) <= 4 THEN 1\n" +
+        		"ELSE 0 END) AS Night\n" +
+        		"FROM incident;\n"
+        		, null, null, false, false));
+
+     // Query #9
+        m_queryArray.add(new QueryData(
+        		"SELECT\n" +
+        		"SUM(CASE WHEN MONTH(datetime) = 11\n" +
+        		"AND YEAR(datetime) = 2016 THEN 1 ELSE 0 END)\n" +
+        		"AS 'Total Number of Warnings given in November 2016'\n" +
+        		"FROM incident\n" +
+        		"WHERE outcome_id = 0;\n"
+        		, null, null, false, false));
+
+     // Query #12
+        m_queryArray.add(new QueryData(
+        		"SELECT\n" +
+        		"SUM(i.outcome_id) AS 'Citation (sum)', c.mobile_carrier_name\n" +
+        		"FROM incident i\n" +
+        		"JOIN vehicle v\n" +
+        		"ON i.vehicle_id = v.vehicle_id\n" +
+        		"JOIN owner o\n" +
+        		"ON v.owner_id = o.owner_id\n" +
+        		"JOIN phone p\n" +
+        		"ON o.owner_id = p.owner_id\n" +
+        		"JOIN mobile_carrier c\n" +
+        		"ON c.mobile_carrier_id = p.mobile_carrier\n" +
+        		"WHERE i.outcome_id = 1\n" +
+        		"GROUP BY c.mobile_carrier_id;\n"
+        		, null, null, false, false));
 
     }
 
