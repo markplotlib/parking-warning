@@ -251,7 +251,7 @@ public class QueryRunner {
     	  if(this.isActionQuery(queryChoice)) {
    		   this.ExecuteUpdate(queryChoice, params);
               int numOfRowAffected = this.GetUpdateAmount();
-              System.out.println(numOfRowAffected);
+              System.out.println("Number of Rows: " + numOfRowAffected);
    	   }else {
    		   this.ExecuteQuery(queryChoice, params);
               String[][] results = this.GetQueryData();
@@ -384,11 +384,11 @@ public class QueryRunner {
                        //Is it a query that Has Parameters
                        if (qr.isParameterQuery(i)) {
                     	   int amt = qr.GetParameterAmtForQuery(i);
-                    	   String[] params = {};
+                    	   String[] params = new String[amt];
                     	   for (int j=0; j< amt; j++) {
                     		   	System.out.println(qr.GetParamText(i, j));
                     	   		String line = scan.nextLine();
-                    	   		params = line.trim().split("\\s+");
+                    	   		params[j] = line.trim();
                     	   	}
                     	   qr.ActionOrNot(i,params);
 //                    	   if(qr.isActionQuery(i)) {
