@@ -246,6 +246,17 @@ public class QueryRunner {
         m_updateAmount = m_jdbcData.GetUpdateCount();
         return bOK;
     }
+    
+    public void ActionOrNot(int queryChoice, String[] params) {
+    	  if(this.isActionQuery(queryChoice)) {
+   		   this.ExecuteQuery(queryChoice, params);
+              int numOfRowAffected = this.GetUpdateAmount();
+              System.out.println(numOfRowAffected);
+   	   }else {
+   		   this.ExecuteQuery(queryChoice, params);
+              String[][] results = this.GetQueryData(); 
+              System.out.println(results);
+   	   }    }
 
 
     public boolean Connect(String szHost, String szUser, String szPass, String szDatabase)
@@ -328,27 +339,44 @@ public class QueryRunner {
                 //    If it is an action query, you will tell how many row's were affected by it.
                 //
                 //    This is Psuedo Code for the task:
-                //    Connect()
-                //    n = GetTotalQueries()
-                //    for (i=0;i < n; i++)
-                //    {
-                //       Is it a query that Has Parameters
-                //       Then
-                //           amt = find out how many parameters it has
-                //           Create a paramter array of strings for that amount
-                //           for (j=0; j< amt; j++)
-                //              Get The Paramater Label for Query and print it to console. Ask the user to enter a value
-                //              Take the value you got and put it into your parameter array
-                //           If it is an Action Query then
-                //              call ExecuteUpdate to run the Query
-                //              call GetUpdateAmount to find out how many rows were affected, and print that value
-                //           else
-                //               call ExecuteQuery
-                //               call GetQueryData to get the results back
-                //               print out all the results
-                //           end if
-                //      }
-                //    Disconnect()
+                
+                // preset login credentials
+                String PasswordField1 = "mm_sttest1bPass";
+                String TextHostname = "cs100.seattleu.edu";
+                String TextFieldUser = "mm_sttest1b";
+                String TextFieldDatabase = "mm_sttest1b_3nf";
+                QueryRunner qr = new QueryRunner();
+                qr.Connect(TextHostname, TextFieldUser, PasswordField1, TextFieldDatabase);
+                
+                int n = qr.GetTotalQueries();
+                    for (int i = 0; i < n; i++)
+                    {
+                       //Is it a query that Has Parameters
+                       if (qr.isParameterQuery(i)) {
+                    	   int amt = qr.GetParameterAmtForQuery(i);
+                    	   String[] params = {};
+                    	   for (int j=0; j< amt; j++) {
+                    		   	System.out.println(qr.GetParamText(i, j));
+                    	   		String line = scan.nextLine();
+                    	   		params = line.trim().split("\\s+");
+                    	   	}
+                    	   qr.ActionOrNot(i,params);
+//                    	   if(qr.isActionQuery(i)) {
+//                    		   qr.ExecuteQuery(i, params);
+//                               int numOfRowAffected = qr.GetUpdateAmount();
+//                               System.out.println(numOfRowAffected);
+//                    	   }else {
+//                    		   qr.ExecuteQuery(i, params);
+//                               String[][] results = qr.GetQueryData(); 
+//                               System.out.println(results);
+//                    	   }
+                           
+                       } else {
+                    	   String[] params = {};
+                    	   qr.ActionOrNot(i,params);
+                       }
+                      }
+                    qr.Disconnect();
 
 
                 // NOTE - IF THERE ARE ANY ERRORS, please print the Error output
