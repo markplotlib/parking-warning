@@ -297,7 +297,26 @@ public class QueryRunner {
      * @param args the command line arguments
      */
 
+    public static void showWelcome(int n) {
+        System.out.println("Welcome to the Parking Warning System.");
+        System.out.printf("This program will execute the following %d queries.", n);
+        String[] queryDescriptions;
+        // for (int i = 0; i < n; i++) {}
 
+        System.out.println("1) Show all records.");
+        System.out.println("2) Show records of specific owner ID.");
+        System.out.println("3) Show records of a city.");
+        System.out.println("4) Insert a new record.");
+        System.out.println("5) Show top 5 cities with most citations.");
+        System.out.println("6) Show sum of citations for age tiers.");
+        System.out.println("7) Compare cities of citations to cities of driver licenses.");
+        System.out.println("8) Show adoption of this app, by mobile carriers.");
+        System.out.println("9) Show sums of mobile carrier and phone brand.");
+        System.out.println("10) Show sum of citations for each time of day.");
+        System.out.println("11) Show monthly sum of citations.");
+        System.out.println("12) Show sum of citations for each mobile carrier.");
+        System.out.print("Please press 'Enter' to continue: ");
+    }
 
     public static void main(String[] args) {
         // TODO code application logic here
@@ -317,85 +336,32 @@ public class QueryRunner {
         {
             if (args[0].equals ("-console"))
             {
-                Scanner scan = new Scanner(System.in);
-                System.out.println("Welcome to the Parking Warning System.");
-                System.out.println("Menu:");
-                System.out.println("1) Show all records.");
-                System.out.println("2) Show records of specific owner ID.");
-                System.out.println("3) Show records of a city.");
-                System.out.println("4) Insert a new record.");
-                System.out.println("5) Show top 5 cities with most citations.");
-                System.out.println("6) Show sum of citations for age tiers.");
-                System.out.println("7) Compare cities of citations to cities of driver licenses.");
-                System.out.println("8) Show adoption of this app, by mobile carriers.");
-                System.out.println("9) Show sums of mobile carrier and phone brand.");
-                System.out.println("10) Show sum of citations for each time of day.");
-                System.out.println("11) Show monthly sum of citations.");
-                System.out.println("12) Show sum of citations for each mobile carrier.");
-                System.out.print("Please enter a menu option: ");
-                String userInput = scan.nextLine();
-                System.out.println(userInput);
-
-                //    You need to determine if it is a parameter query. If it is, then
-                //    you will need to ask the user to put in the values for the Parameters in your query
-                //    you will then call ExecuteQuery or ExecuteUpdate (depending on whether it is an action query or regular query)
-                //    if it is a regular query, you should then get the data by calling GetQueryData. You should then display this
-                //    output.
-                //    If it is an action query, you will tell how many row's were affected by it.
-                //
-                //    This is Psuedo Code for the task:
-                //    You need to determine if it is a parameter query. If it is, then
-                //    you will need to ask the user to put in the values for the Parameters in your query
-                //    you will then call ExecuteQuery or ExecuteUpdate (depending on whether it is an action query or regular query)
-                //    if it is a regular query, you should then get the data by calling GetQueryData. You should then display this
-                //    output.
-                //    If it is an action query, you will tell how many row's were affected by it.
-                //
-                //    This is Psuedo Code for the task:
-                //    Connect()
-                //    n = GetTotalQueries()
-                //    for (i=0;i < n; i++)
-                //    {
-                //       Is it a query that Has Parameters
-                //       Then
-                //           amt = find out how many parameters it has
-                //           Create a paramter array of strings for that amount
-                //           for (j=0; j< amt; j++)
-                //              Get The Paramater Label for Query and print it to console. Ask the user to enter a value
-                //              Take the value you got and put it into your parameter array
-                //           If it is an Action Query then
-                //              call ExecuteUpdate to run the Query
-                //              call GetUpdateAmount to find out how many rows were affected, and print that value
-                //           else
-                //               call ExecuteQuery
-                //               call GetQueryData to get the results back
-                //               print out all the results
-                //           end if
-                //      }
-                //    Disconnect()
-
-
+                QueryRunner qr = new QueryRunner();
+                int n = qr.GetTotalQueries();
                 // preset login credentials
                 String PasswordField1 = "mm_sttest1bPass";
                 String TextHostname = "cs100.seattleu.edu";
                 String TextFieldUser = "mm_sttest1b";
                 String TextFieldDatabase = "mm_sttest1b_3nf";
-                QueryRunner qr = new QueryRunner();
+                Scanner keyboard = new Scanner(System.in);
+
+                showWelcome(n);
+                String userInput = keyboard.nextLine();
+                System.out.println(userInput);
+
                 qr.Connect(TextHostname, TextFieldUser, PasswordField1, TextFieldDatabase);
 
-                int n = qr.GetTotalQueries();
-                    for (int i = 0; i < n; i++)
-                    {
-                       //Is it a query that Has Parameters
-                       if (qr.isParameterQuery(i)) {
-                    	   int amt = qr.GetParameterAmtForQuery(i);
-                    	   String[] params = new String[amt];
-                    	   for (int j=0; j< amt; j++) {
-                    		   	System.out.println(qr.GetParamText(i, j));
-                    	   		String line = scan.nextLine();
-                    	   		params[j] = line.trim();
-                    	   	}
-                    	   qr.ActionOrNot(i,params);
+                for (int i = 0; i < n; i++) {
+                   //Is it a query that has Parameters
+                   if (qr.isParameterQuery(i)) {
+                	   int amt = qr.GetParameterAmtForQuery(i);
+                	   String[] params = new String[amt];
+                	   for (int j=0; j< amt; j++) {
+                		   	System.out.println(qr.GetParamText(i, j));
+                	   		String line = keyboard.nextLine();
+                	   		params[j] = line.trim();
+                	   }
+                	   qr.ActionOrNot(i,params);
 //                    	   if(qr.isActionQuery(i)) {
 //                    		   qr.ExecuteUpdate(i, params);
 //                               int numOfRowAffected = qr.GetUpdateAmount();
@@ -406,12 +372,13 @@ public class QueryRunner {
 //                               System.out.println(results);
 //                    	   }
 
-                       } else {
-                    	   String[] params = {};
-                    	   qr.ActionOrNot(i,params);
-                       }
-                      }
-                    qr.Disconnect();
+                   } else {
+                	   String[] params = {};
+                	   qr.ActionOrNot(i,params);
+                   }
+                }
+                keyboard.close();
+                qr.Disconnect();
 
 
                 // NOTE - IF THERE ARE ANY ERRORS, please print the Error output
@@ -426,3 +393,41 @@ public class QueryRunner {
 
     }
 }
+
+//    You need to determine if it is a parameter query. If it is, then
+//    you will need to ask the user to put in the values for the Parameters in your query
+//    you will then call ExecuteQuery or ExecuteUpdate (depending on whether it is an action query or regular query)
+//    if it is a regular query, you should then get the data by calling GetQueryData. You should then display this
+//    output.
+//    If it is an action query, you will tell how many row's were affected by it.
+//
+//    This is Psuedo Code for the task:
+//    You need to determine if it is a parameter query. If it is, then
+//    you will need to ask the user to put in the values for the Parameters in your query
+//    you will then call ExecuteQuery or ExecuteUpdate (depending on whether it is an action query or regular query)
+//    if it is a regular query, you should then get the data by calling GetQueryData. You should then display this
+//    output.
+//    If it is an action query, you will tell how many row's were affected by it.
+//
+//    This is Psuedo Code for the task:
+//    Connect()
+//    n = GetTotalQueries()
+//    for (i=0;i < n; i++)
+//    {
+//       Is it a query that Has Parameters
+//       Then
+//           amt = find out how many parameters it has
+//           Create a paramter array of strings for that amount
+//           for (j=0; j< amt; j++)
+//              Get The Paramater Label for Query and print it to console. Ask the user to enter a value
+//              Take the value you got and put it into your parameter array
+//           If it is an Action Query then
+//              call ExecuteUpdate to run the Query
+//              call GetUpdateAmount to find out how many rows were affected, and print that value
+//           else
+//               call ExecuteQuery
+//               call GetQueryData to get the results back
+//               print out all the results
+//           end if
+//      }
+//    Disconnect()
