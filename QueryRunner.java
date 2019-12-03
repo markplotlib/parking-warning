@@ -27,15 +27,10 @@ public class QueryRunner {
         m_error="";
 
 
-        // TODO - You will need to change the queries below to match your queries.
-
-        // You will need to put your Project Application in the below variable
-
         this.m_projectTeamApplication="PARKING WARNING";
 
         // Each row that is added to m_queryArray is a separate query. It does not work on Stored procedure calls.
-        // The 'new' Java keyword is a way of initializing the data that will be added to QueryArray. Please do not change
-        // Format for each row of m_queryArray is: (QueryText, ParamaterLabelArray[], LikeParameterArray[], IsItActionQuery, IsItParameterQuery)
+        // Please do not change Format for each row of m_queryArray is: (QueryText, ParamaterLabelArray[], LikeParameterArray[], IsItActionQuery, IsItParameterQuery)
 
         //    QueryText is a String that represents your query. It can be anything but Stored Procedure
         //    Parameter Label Array  (e.g. Put in null if there is no Parameters in your query, otherwise put in the Parameter Names)
@@ -43,18 +38,21 @@ public class QueryRunner {
         //    IsItActionQuery (e.g. Mark it true if it is, otherwise false)
         //    IsItParameterQuery (e.g.Mark it true if it is, otherwise false)
 
+        // Query #1
         m_queryArray.add(new QueryData("Select * from owner", null, null, false, false));
+        // Query #2
         m_queryArray.add(new QueryData("Select * from owner where owner_id=?", new String [] {"OWNER_ID"}, new boolean [] {false},  false, true));
+        // Query #3
         m_queryArray.add(new QueryData("Select * from location where city like ?", new String [] {"CITY"}, new boolean [] {true}, false, true));
+        // Query #4
         m_queryArray.add(new QueryData("insert into owner (owner_id, first_name, last_name, age, phone_number) values (?,?,?,?,?)",new String [] {"OWNER_ID", "FIRST_NAME", "LAST_NAME", "AGE", "PHONE_NUMBER"}, new boolean [] {false, false, false, false, false}, true, true));
 
-        // Query numbers below correspond to the query verifying sheet in google drive
-        // Query #2
+        // Query #5
         m_queryArray.add(new QueryData("SELECT inc.location_id, loc.city, loc.state, COUNT(inc.location_id) AS Incidents\r\n" +
         		"FROM incident as inc, location as loc WHERE inc.location_id = loc.location_id\r\n" +
         		"GROUP BY inc.location_id, loc.city, loc.state ORDER BY Incidents DESC Limit 5;", null, null, false, false));   // THIS NEEDS TO CHANGE FOR YOUR APPLICATION
 
-        // Query #3
+        // Query #6
         m_queryArray.add(new QueryData(
         		"SELECT  \r\n"
         		+ "SUM(CASE WHEN owner.age >=  0 \r\n"
@@ -77,7 +75,7 @@ public class QueryRunner {
         		+ "WHERE outcome_id = 1;\n" +
         		"", null, null, false, false));
 
-        // Query #4
+        // Query #7
         m_queryArray.add(new QueryData(
         		"SELECT  loc.city AS 'city of citation',\r\n"
         		+ "loc.state AS 'state of citation',\r\n"
@@ -93,7 +91,7 @@ public class QueryRunner {
         		+ "ON o.owner_id = lic.owner_id\r\n"
         		+ "WHERE inc.outcome_id = 1;", null, null, false, false));
 
-     // Query #5
+        // Query #8
         m_queryArray.add(new QueryData(
         		"SELECT p.mobile_carrier, m.mobile_carrier_name,\r\n"
         		+ "COUNT(m.mobile_carrier_name)\r\n"
@@ -105,7 +103,7 @@ public class QueryRunner {
         		+ "ORDER BY 'user adoption (ct)' DESC;"
         		, null, null, false, false));
 
-     // Query #6
+     // Query #9
         m_queryArray.add(new QueryData(
         		"SELECT p.phone_brand, m.mobile_carrier_name,\n" +
         		"COUNT(m.mobile_carrier_name) -- AS [total mobile carrier users]\n" +
@@ -116,13 +114,13 @@ public class QueryRunner {
         		"ORDER BY p.phone_brand, m.mobile_carrier_name\n"
         		, null, null, false, false));
 
-     // Query #7
+     // Query #10
         m_queryArray.add(new QueryData(
         		"SELECT\n" +
         		"SUM(CASE WHEN HOUR(datetime) BETWEEN 5 AND 12 THEN 1 ELSE 0\n" +
         		"END) AS Morning,\n" +
         		"SUM(CASE WHEN HOUR(datetime) BETWEEN 13 AND 17 THEN 1 ELSE 0 END)\n" +
-        		"AS Afternoon,\n" + 
+        		"AS Afternoon,\n" +
         		"SUM(CASE WHEN HOUR(datetime) BETWEEN 18 AND 22 THEN 1 ELSE 0\n" +
         		"END) AS Evening,\n" +
         		"SUM(CASE WHEN HOUR(datetime) >= 23 OR HOUR(datetime) <= 4 THEN 1\n" +
@@ -130,7 +128,7 @@ public class QueryRunner {
         		"FROM incident;\n"
         		, null, null, false, false));
 
-     // Query #9
+     // Query #11
         m_queryArray.add(new QueryData(
         		"SELECT\n" +
         		"SUM(CASE WHEN MONTH(datetime) = 11\n" +
