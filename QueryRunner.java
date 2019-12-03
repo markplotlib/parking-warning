@@ -298,29 +298,32 @@ public class QueryRunner {
      */
 
     public static void showWelcome(int n) {
-        System.out.println("Welcome to the Parking Warning System.");
-        System.out.printf("This program will execute the following %d queries.", n);
-        String[] queryDescriptions;
-        // for (int i = 0; i < n; i++) {}
+    	System.out.println("\n======================================");
+    	System.out.println("Welcome to the Parking Warning Database System.");
+    	System.out.println("======================================");
+        System.out.printf("This program will execute the following %d queries.\n", n);
 
-        System.out.println("1) Show all records.");
-        System.out.println("2) Show records of specific owner ID.");
-        System.out.println("3) Show records of a city.");
-        System.out.println("4) Insert a new record.");
-        System.out.println("5) Show top 5 cities with most citations.");
-        System.out.println("6) Show sum of citations for age tiers.");
-        System.out.println("7) Compare cities of citations to cities of driver licenses.");
-        System.out.println("8) Show adoption of this app, by mobile carriers.");
-        System.out.println("9) Show sums of mobile carrier and phone brand.");
-        System.out.println("10) Show sum of citations for each time of day.");
-        System.out.println("11) Show monthly sum of citations.");
-        System.out.println("12) Show sum of citations for each mobile carrier.");
-        System.out.print("Please press 'Enter' to continue: ");
+        String[] queryDescriptions = new String[]{
+            "Show all records.",
+            "Show records of specific owner ID.",
+            "Show records of a city.",
+            "Insert a new record.",
+            "Show top 5 cities with most citations.",
+            "Show sum of citations for age tiers.",
+            "Compare cities of citations to cities of driver licenses.",
+            "Show adoption of this app, by mobile carriers.",
+            "Show sums of mobile carrier and phone brand.",
+            "Show sum of citations for each time of day.",
+            "Show monthly sum of citations.",
+            "Show sum of citations for each mobile carrier."
+        };
+
+        for (int i = 1; i <= n; i++) {
+            System.out.println(i + ")" + queryDescriptions[i]);
+        }
     }
 
     public static void main(String[] args) {
-        // TODO code application logic here
-
         final QueryRunner queryrunner = new QueryRunner();
 
         if (args.length == 0)
@@ -338,22 +341,25 @@ public class QueryRunner {
             {
                 QueryRunner qr = new QueryRunner();
                 int n = qr.GetTotalQueries();
+                Scanner keyboard = new Scanner(System.in);
+                char ch;
                 // preset login credentials
                 String PasswordField1 = "mm_sttest1bPass";
                 String TextHostname = "cs100.seattleu.edu";
                 String TextFieldUser = "mm_sttest1b";
                 String TextFieldDatabase = "mm_sttest1b_3nf";
-                Scanner keyboard = new Scanner(System.in);
-
-                showWelcome(n);
-                String userInput = keyboard.nextLine();
-                System.out.println(userInput);
-
                 qr.Connect(TextHostname, TextFieldUser, PasswordField1, TextFieldDatabase);
 
+                showWelcome(n);
+
                 for (int i = 0; i < n; i++) {
-                   //Is it a query that has Parameters
-                   if (qr.isParameterQuery(i)) {
+                    System.out.print("\nPlease press 'Enter' to continue, or 'q' to quit.  ");
+                    ch = keyboard.nextLine().charAt(0);
+                    if (ch == 'q') {
+                        break;
+                    }
+                    //Is it a query that has Parameters
+                    if (qr.isParameterQuery(i)) {
                 	   int amt = qr.GetParameterAmtForQuery(i);
                 	   String[] params = new String[amt];
                 	   for (int j=0; j< amt; j++) {
@@ -377,16 +383,10 @@ public class QueryRunner {
                 	   qr.ActionOrNot(i,params);
                    }
                 }
+                System.out.print("\n\nThank you for using the Parking Warning Database System. Goodbye.");
                 keyboard.close();
                 qr.Disconnect();
 
-
-                // NOTE - IF THERE ARE ANY ERRORS, please print the Error output
-                // NOTE - The QueryRunner functions call the various JDBC Functions that are in QueryJDBC. If you would rather code JDBC
-                // functions directly, you can choose to do that. It will be harder, but that is your option.
-                // NOTE - You can look at the QueryRunner API calls that are in QueryFrame.java for assistance. You should not have to
-                //    alter any code in QueryJDBC, QueryData, or QueryFrame to make this work.
-//                System.out.println("Please write the non-gui functionality");
 
             }
         }
@@ -431,3 +431,11 @@ public class QueryRunner {
 //           end if
 //      }
 //    Disconnect()
+
+// NOTE - IF THERE ARE ANY ERRORS, please print the Error output
+// NOTE - The QueryRunner functions call the various JDBC Functions that are in QueryJDBC. If you would rather code JDBC
+// functions directly, you can choose to do that. It will be harder, but that is your option.
+// NOTE - You can look at the QueryRunner API calls that are in QueryFrame.java for assistance. You should not have to
+//    alter any code in QueryJDBC, QueryData, or QueryFrame to make this work.
+//System.out.println("Please write the non-gui functionality");
+
