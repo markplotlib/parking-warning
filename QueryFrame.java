@@ -206,12 +206,12 @@ public class QueryFrame extends javax.swing.JFrame {
         });
         getContentPane().add(jBtnRunQuery, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 190, -1, -1));
 
-//        jPasswordField1.setText("jPasswordField1");
+        // preset login credentials
         jPasswordField1.setText("mm_sttest1bPass");
-        jTextHostname.setText("cs100.seattleu.edu");
-        jTextFieldUser.setText("mm_sttest1b");
-        jTextFieldDatabase.setText("mm_sttest1b_3nf");
-
+		jTextHostname.setText("cs100.seattleu.edu");
+		jTextFieldUser.setText("mm_sttest1b");
+		jTextFieldDatabase.setText("mm_sttest1b_3nf");
+        
         jPasswordField1.setNextFocusableComponent(jTextFieldDatabase);
         getContentPane().add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, 120, -1));
 
