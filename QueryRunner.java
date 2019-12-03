@@ -50,7 +50,7 @@ public class QueryRunner {
         // Query #5
         m_queryArray.add(new QueryData("SELECT inc.location_id, loc.city, loc.state, COUNT(inc.location_id) AS Incidents\r\n" +
         		"FROM incident as inc, location as loc WHERE inc.location_id = loc.location_id\r\n" +
-        		"GROUP BY inc.location_id, loc.city, loc.state ORDER BY Incidents DESC Limit 5;", null, null, false, false));   // THIS NEEDS TO CHANGE FOR YOUR APPLICATION
+        		"GROUP BY inc.location_id, loc.city, loc.state ORDER BY Incidents DESC Limit 5;", null, null, false, false));
 
         // Query #6
         m_queryArray.add(new QueryData(
@@ -304,9 +304,18 @@ public class QueryRunner {
                 Scanner scan = new Scanner(System.in);
                 System.out.println("Welcome to the Parking Warning System.");
                 System.out.println("Menu:");
-                System.out.println("1) option 1");
-                System.out.println("2) option 2");
-                System.out.println("3) option 3");
+                System.out.println("1) Show all records.");
+                System.out.println("2) Show records of specific owner ID.");
+                System.out.println("3) Show records of a city.");
+                System.out.println("4) Insert a new record.");
+                System.out.println("5) Show top 5 cities with most citations.");
+                System.out.println("6) Show sum of citations for age tiers.");
+                System.out.println("7) Compare cities of citations to cities of driver licenses.");
+                System.out.println("8) Show adoption of this app, by mobile carriers.");
+                System.out.println("9) Show sums of mobile carrier and phone brand.");
+                System.out.println("10) Show sum of citations for each time of day.");
+                System.out.println("11) Show monthly sum of citations.");
+                System.out.println("12) Show sum of citations for each mobile carrier.");
                 System.out.print("Please enter a menu option: ");
                 String userInput = scan.nextLine();
                 System.out.println(userInput);
