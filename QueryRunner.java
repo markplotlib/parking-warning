@@ -48,6 +48,7 @@ public class QueryRunner {
         m_queryArray.add(new QueryData("Select * from location where city like ?", new String [] {"CITY"}, new boolean [] {true}, false, true));
         m_queryArray.add(new QueryData("insert into owner (owner_id, first_name, last_name, age, phone_number) values (?,?,?,?,?)",new String [] {"OWNER_ID", "FIRST_NAME", "LAST_NAME", "AGE", "PHONE_NUMBER"}, new boolean [] {false, false, false, false, false}, true, true));
 
+        // Query numbers below correspond to the query verifying sheet in google drive
         // Query #2
         m_queryArray.add(new QueryData("SELECT inc.location_id, loc.city, loc.state, COUNT(inc.location_id) AS Incidents\r\n" + 
         		"FROM incident as inc, location as loc WHERE inc.location_id = loc.location_id\r\n" + 
