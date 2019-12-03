@@ -255,7 +255,12 @@ public class QueryRunner {
    	   }else {
    		   this.ExecuteQuery(queryChoice, params);
               String[][] results = this.GetQueryData();
-              System.out.println(results.toString());
+              for (int row = 0; row < results.length; row++) {
+            	  for (int col = 0; col < results[row].length; col++) {
+            		  System.out.print(results[row][col] + " ");
+            	  }
+            	  System.out.println();
+              }
    	   }    }
 
 
