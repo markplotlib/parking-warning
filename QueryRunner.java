@@ -49,15 +49,15 @@ public class QueryRunner {
         m_queryArray.add(new QueryData("insert into owner (owner_id, first_name, last_name, age, phone_number) values (?,?,?,?,?)",new String [] {"OWNER_ID", "FIRST_NAME", "LAST_NAME", "AGE", "PHONE_NUMBER"}, new boolean [] {false, false, false, false, false}, true, true));
 
         // Query #2
-        m_queryArray.add(new QueryData("SELECT inc.location_id, loc.city, loc.state, COUNT(inc.location_id) AS Incidents\r\n" + 
-        		"FROM incident as inc, location as loc WHERE inc.location_id = loc.location_id\r\n" + 
+        m_queryArray.add(new QueryData("SELECT inc.location_id, loc.city, loc.state, COUNT(inc.location_id) AS Incidents\r\n" +
+        		"FROM incident as inc, location as loc WHERE inc.location_id = loc.location_id\r\n" +
         		"GROUP BY inc.location_id, loc.city, loc.state ORDER BY Incidents DESC Limit 5;", null, null, false, false));   // THIS NEEDS TO CHANGE FOR YOUR APPLICATION
-        
+
         // Query #3
         m_queryArray.add(new QueryData(
         		"SELECT  \r\n"
         		+ "SUM(CASE WHEN owner.age >=  0 \r\n"
-        		+ "AND\r\n" 
+        		+ "AND\r\n"
         		+ "owner.age < 35 THEN 1 ELSE 0 END)\r\n"
         		+ "AS 'age < 35',\r\n"
         		+ "SUM(CASE WHEN owner.age >=  35 \r\n"
@@ -73,7 +73,7 @@ public class QueryRunner {
         		+ "ON incident.vehicle_id = vehicle.vehicle_id \r\n"
         		+ "JOIN owner\r\n"
         		+ "ON vehicle.owner_id = owner.owner_id \r\n"
-        		+ "WHERE outcome_id = 1;\n" + 
+        		+ "WHERE outcome_id = 1;\n" +
         		"", null, null, false, false));
 
         // Query #4
@@ -91,7 +91,7 @@ public class QueryRunner {
         		+ "JOIN license lic\r\n"
         		+ "ON o.owner_id = lic.owner_id\r\n"
         		+ "WHERE inc.outcome_id = 1 ", null, null, false, false));
-//        
+//
 //     // Query #5
 //        m_queryArray.add(new QueryData(
 //        		"SELECT  loc.city AS 'city of citation',\r\n"
@@ -254,19 +254,15 @@ public class QueryRunner {
         {
             if (args[0].equals ("-console"))
             {
-            	System.out.println("Welcome to the Parking Warning System.");
-               // TODO
-                // You should code the following functionality:
-
                 Scanner scan = new Scanner(System.in);
-                char c;
+                System.out.println("Welcome to the Parking Warning System.");
                 System.out.println("Menu:");
                 System.out.println("1) option 1");
                 System.out.println("2) option 2");
                 System.out.println("3) option 3");
                 System.out.print("Please enter a menu option: ");
-                String abc = scan.nextLine();
-                System.out.println(abc);                
+                String userInput = scan.nextLine();
+                System.out.println(userInput);
 
                 //    You need to determine if it is a parameter query. If it is, then
                 //    you will need to ask the user to put in the values for the Parameters in your query
