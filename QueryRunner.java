@@ -128,15 +128,15 @@ public class QueryRunner {
         		"FROM incident;\n"
         		, null, null, false, false));
 
-     // Query #11
+     // Query #11  WE OUT HERE
         m_queryArray.add(new QueryData(
         		"SELECT\n" +
-        		"SUM(CASE WHEN MONTH(datetime) = 11\n" +
-        		"AND YEAR(datetime) = 2016 THEN 1 ELSE 0 END)\n" +
+        		"SUM(CASE WHEN MONTH(datetime) = ?\n" +
+        		"AND YEAR(datetime) = ? THEN 1 ELSE 0 END)\n" +
         		"AS 'Total Number of Warnings given in November 2016'\n" +
         		"FROM incident\n" +
         		"WHERE outcome_id = 0;\n"
-        		, null, null, false, false));
+        		, new String[] {"Month (Number)", "Year"}, new boolean [] {false, false}, false, true));
 
      // Query #12
         m_queryArray.add(new QueryData(
