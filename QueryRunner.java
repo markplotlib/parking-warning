@@ -298,9 +298,9 @@ public class QueryRunner {
      */
 
     public static void showWelcome(int n) {
-    	System.out.println("\n======================================");
+    	System.out.println("\n===============================================");
     	System.out.println("Welcome to the Parking Warning Database System.");
-    	System.out.println("======================================");
+    	System.out.println("===============================================");
         System.out.printf("This program will execute the following %d queries.\n", n);
 
         String[] queryDescriptions = new String[]{
@@ -318,8 +318,8 @@ public class QueryRunner {
             "Show sum of citations for each mobile carrier."
         };
 
-        for (int i = 1; i <= n; i++) {
-            System.out.println(i + ")" + queryDescriptions[i]);
+        for (int i = 0; i < n; i++) {
+            System.out.println(i+1 + ")" + queryDescriptions[i]);
         }
     }
 
@@ -342,7 +342,7 @@ public class QueryRunner {
                 QueryRunner qr = new QueryRunner();
                 int n = qr.GetTotalQueries();
                 Scanner keyboard = new Scanner(System.in);
-                char ch;
+                string str;
                 // preset login credentials
                 String PasswordField1 = "mm_sttest1bPass";
                 String TextHostname = "cs100.seattleu.edu";
@@ -354,8 +354,8 @@ public class QueryRunner {
 
                 for (int i = 0; i < n; i++) {
                     System.out.print("\nPlease press 'Enter' to continue, or 'q' to quit.  ");
-                    ch = keyboard.nextLine().charAt(0);
-                    if (ch == 'q') {
+                    str = keyboard.nextLine()
+                    if (str.length() != 0 && str.charAt(0) == 'q') {
                         break;
                     }
                     //Is it a query that has Parameters
@@ -387,6 +387,13 @@ public class QueryRunner {
                 keyboard.close();
                 qr.Disconnect();
 
+
+                // NOTE - IF THERE ARE ANY ERRORS, please print the Error output
+                // NOTE - The QueryRunner functions call the various JDBC Functions that are in QueryJDBC. If you would rather code JDBC
+                // functions directly, you can choose to do that. It will be harder, but that is your option.
+                // NOTE - You can look at the QueryRunner API calls that are in QueryFrame.java for assistance. You should not have to
+                //    alter any code in QueryJDBC, QueryData, or QueryFrame to make this work.
+//                System.out.println("Please write the non-gui functionality");
 
             }
         }
@@ -431,11 +438,3 @@ public class QueryRunner {
 //           end if
 //      }
 //    Disconnect()
-
-// NOTE - IF THERE ARE ANY ERRORS, please print the Error output
-// NOTE - The QueryRunner functions call the various JDBC Functions that are in QueryJDBC. If you would rather code JDBC
-// functions directly, you can choose to do that. It will be harder, but that is your option.
-// NOTE - You can look at the QueryRunner API calls that are in QueryFrame.java for assistance. You should not have to
-//    alter any code in QueryJDBC, QueryData, or QueryFrame to make this work.
-//System.out.println("Please write the non-gui functionality");
-
