@@ -249,13 +249,13 @@ public class QueryRunner {
 
     public void ActionOrNot(int queryChoice, String[] params) {
     	  if(this.isActionQuery(queryChoice)) {
-   		   this.ExecuteQuery(queryChoice, params);
+   		   this.ExecuteUpdate(queryChoice, params);
               int numOfRowAffected = this.GetUpdateAmount();
               System.out.println(numOfRowAffected);
    	   }else {
    		   this.ExecuteQuery(queryChoice, params);
               String[][] results = this.GetQueryData();
-              System.out.println(results);
+              System.out.println(results.toString());
    	   }    }
 
 
@@ -392,7 +392,7 @@ public class QueryRunner {
                     	   	}
                     	   qr.ActionOrNot(i,params);
 //                    	   if(qr.isActionQuery(i)) {
-//                    		   qr.ExecuteQuery(i, params);
+//                    		   qr.ExecuteUpdate(i, params);
 //                               int numOfRowAffected = qr.GetUpdateAmount();
 //                               System.out.println(numOfRowAffected);
 //                    	   }else {
