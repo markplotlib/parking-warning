@@ -342,7 +342,7 @@ public class QueryRunner {
                 QueryRunner qr = new QueryRunner();
                 int n = qr.GetTotalQueries();
                 Scanner keyboard = new Scanner(System.in);
-                string str;
+                String str;
                 // preset login credentials
                 String PasswordField1 = "mm_sttest1bPass";
                 String TextHostname = "cs100.seattleu.edu";
@@ -354,11 +354,10 @@ public class QueryRunner {
 
                 for (int i = 0; i < n; i++) {
                     System.out.print("\nPlease press 'Enter' to continue, or 'q' to quit.  ");
-                    str = keyboard.nextLine()
+                    str = keyboard.nextLine();
                     if (str.length() != 0 && str.charAt(0) == 'q') {
                         break;
                     }
-                    //Is it a query that has Parameters
                     if (qr.isParameterQuery(i)) {
                 	   int amt = qr.GetParameterAmtForQuery(i);
                 	   String[] params = new String[amt];
@@ -368,16 +367,6 @@ public class QueryRunner {
                 	   		params[j] = line.trim();
                 	   }
                 	   qr.ActionOrNot(i,params);
-//                    	   if(qr.isActionQuery(i)) {
-//                    		   qr.ExecuteUpdate(i, params);
-//                               int numOfRowAffected = qr.GetUpdateAmount();
-//                               System.out.println(numOfRowAffected);
-//                    	   }else {
-//                    		   qr.ExecuteQuery(i, params);
-//                               String[][] results = qr.GetQueryData();
-//                               System.out.println(results);
-//                    	   }
-
                    } else {
                 	   String[] params = {};
                 	   qr.ActionOrNot(i,params);
