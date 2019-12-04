@@ -358,6 +358,7 @@ public class QueryRunner {
                     if (str.length() != 0 && str.charAt(0) == 'q') {
                         break;
                     }
+                    System.out.println(qr.GetQueryText(i));
                     if (qr.isParameterQuery(i)) {
                 	   int amt = qr.GetParameterAmtForQuery(i);
                 	   String[] params = new String[amt];
