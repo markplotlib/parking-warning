@@ -257,7 +257,7 @@ public class QueryRunner {
               String[][] results = this.GetQueryData();
               for (int row = 0; row < results.length; row++) {
             	  for (int col = 0; col < results[row].length; col++) {
-            		  System.out.print(results[row][col] + " ");
+            		  System.out.print(results[row][col] + "\t");
             	  }
             	  System.out.println();
               }
@@ -342,7 +342,7 @@ public class QueryRunner {
                 QueryRunner qr = new QueryRunner();
                 int n = qr.GetTotalQueries();
                 Scanner keyboard = new Scanner(System.in);
-                String str;
+            	String str;
                 // preset login credentials
                 String PasswordField1 = "mm_sttest1bPass";
                 String TextHostname = "cs100.seattleu.edu";
@@ -377,7 +377,5 @@ public class QueryRunner {
                 qr.Disconnect();
             }
         }
-
     }
 }
-
