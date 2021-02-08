@@ -9,6 +9,14 @@ owner.
 This back-end relational database system enables SMS warnings to
  reduce unwanted parking citations.
 
+# Technologies
+
+ * Java, version 8
+
+ * MySQL Workbench 8.0 Community Edition
+
+ * QueryRunner.java - OTS app for GUI and CLI execution
+
 # Database Schema
 
 This Entity Relationship Diagram shows how data tables are related,
