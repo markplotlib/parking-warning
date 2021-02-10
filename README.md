@@ -22,6 +22,8 @@ This back-end relational database system enables SMS warnings to
 This Entity Relationship Diagram shows how data tables are related,
  specific to roles of the System users.
 
+[See Entity Relationship Diagrams](./img/README.md)
+
 ![DB view from patrol](./img/db_view_patrol.png)
 ![DB view from owner](./img/db_view_owner.png)
 ![Overall Conceptual Model](./img/db_concept_model.png)
