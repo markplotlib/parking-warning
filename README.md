@@ -24,14 +24,7 @@ This Entity Relationship Diagram shows how data tables are related,
 
 [See Entity Relationship Diagrams](./img/)
 
-<!-- ![DB view from patrol](./img/db_view_patrol.png) -->
-<img src="./img/db_view_patrol.png" width=200>
-
-<!-- ![DB view from owner](./img/db_view_owner.png) -->
-<img src="./img/db_view_owner.png" width=200>
-
-<!-- ![Overall Conceptual Model](./img/db_concept_model.png) -->
-<img src="./img/db_concept_model.png" width=200>
+<img src="./img/db_thumbnail.png" width=500>
 
 # Use Case
 ## Problem Scenario
