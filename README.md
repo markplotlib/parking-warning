@@ -38,11 +38,11 @@ Millions of city drivers can have a more positive experience when parking their
  unwanted parking fines.
 
 ## Solution
-● This database serves as a web application stored on a mobile device used by a
+This database serves as a web application stored on a mobile device used by a
  parking patrol officer.
-● The application interfaces with the mobile phone SMS of vehicle motorists.
-● The officer scans and records information that identifies each vehicle
+The application interfaces with the mobile phone SMS of vehicle motorists.
+The officer scans and records information that identifies each vehicle
  violating parking rules
-● Owner receives warning messages
-● This system will result in fewer worries and concerns about unwanted parking
+Owner receives warning messages
+This system will result in fewer worries and concerns about unwanted parking
  citations for city drivers.

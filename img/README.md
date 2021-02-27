@@ -10,4 +10,5 @@ Overall view: owner
 
 ![Overall Conceptual Model](./db_concept_model.png)
 
-[Back](../README.md)
+<!-- [Back](../README.md) -->
+[Back](../)
